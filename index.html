@@ -1,9 +1,153 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
-	<head>
-		<title>My App</title>
-	</head>
-<body>
-	This is my app
-</body>	
+<head>
+
+	<meta charset="UTF-8">
+	<title>Legal Match</title>
+	<link href='https://fonts.googleapis.com/css?family=Gotham' rel='stylesheet'>
+	<script src="libs/angular.min.js"></script>
+	<script src="libs/legalmatch_app.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+
+</head>
+<body ng-app="legalmatch_app" ng-controller="legalmatch_ctrl">
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+  	<div ng-show="category_show">
+	    <span class="close" id="close1">&times;</span>
+	    <p>Which <strong>{{category_title}}</strong> apply(s) to you case?</p>
+		<div style="display:inline; ">
+	   	 	<input type="checkbox" > <span class="check_box_text">Adoptions</span><br>
+			<input type="checkbox" > <span class="check_box_text">Child Support</span><br>
+			<input type="checkbox" > <span class="check_box_text">Guardianship</span> <br>
+			<input type="checkbox" > <span class="check_box_text">Separations</span><br>
+			<input type="checkbox" > <span class="check_box_text">Child Custody and Visitation</span><br>
+			<input type="checkbox" > <span class="check_box_text">Divorce</span> <br>
+			<input type="checkbox" > <span class="check_box_text">Paternity</span><br>
+			<input type="checkbox" > <span class="check_box_text">Spouse Support or Alimony</span><br>
+			
+		</div>
+		<br>
+		<div class="capsule_btn" id="find_lawyer_btn" ng-click="close_modal_div()"><p class="btn_text">FIND A LAWYER NOW</p></div>
+	</div>
+	<div ng-show="reviews_show">
+		<span class="close" id="close2">&times;</span>
+		<p>CLIENT REVIEWS</p>
+		<hr>
+		<div class="user_info">
+			<img  ng-src="{{user.img}}">
+			<p class = "review_name">{{user.full_name}}</p>
+			<p class = "review_address">{{user.address}}</p>
+		</div>
+	</div>
+	
+  </div>
+
+
+</div>
+
+<header>
+	<div id="legalmatch_logo">
+		<img  src="img/logo2.png" alt="logo">
+	</div>
+	<div id="header_list">
+		<ul>
+		  <li>No fee to present your case</li>
+		  <li>Choose from layers in your area</li>
+		  <li>A 100% confidential server</li>
+		</ul>
+	</div>
+	
+	
+</header>
+<section class="col1">
+	<h1>Find a Lawyer for your Legal Issue</h1>
+	<h2>Fast, Free and Confidential</h2>
+
+</section>
+<article>
+	<section class="form_section">
+		
+		<form>
+
+			<p class="field_header">Enter Zip Code or City:</p>
+			<div class="zip_code_container input_fields">
+				<img src="img/step1.png" class = "form_step">
+		   		<input ng-model = "zip_code" ng-change= "selectPlace($event)" type="text" name="zip_code" id="zip_code_text" placeholder="Does not have to be where you live">
+		   		<input id = "text_hint" type="text" ng-model="zip_name" ng-show="show_text" ng-click="getPlace()" style="cursor: pointer;" readonly>
+		   		<br>
+			</div>		
+		  
+		  	<p class="field_header">Choose a category:</p>
+		  	<div id="select_box_image" class="zip_code_container input_fields">
+				<img src="img/step2.png" class = "form_step">
+				<select id="category_select" ng-change="onSelectChange()" ng-model="category_value">
+				  	<option value="0">click to choose a legal category</option>
+					<option value="{{x.id}}" ng-repeat="x in legal_services">{{x.title}}</option>
+					
+				</select>
+			</div>
+		
+		</form>
+
+		
+	</section>
+
+	<section class="review_section">
+		<p class="field_header">Clients review LagalMatch lawyers</p>
+
+		<div class = "reviews_container" ng-repeat="x in reviewers">
+			<img  ng-src="{{x.image_url}}">
+			<p class ="user_name">{{x.full_name}}</p>
+			<p class ="user_address">{{x.address}}</p>
+			<hr>
+			<p class ="user_title">{{x.title}}<img style="margin-left: 10px"src="img/review_star.png"></p>
+			
+			<p class ="user_comments">{{x.comments}}</p>
+			<div class="read_review">
+				<a href="#" id= "read_review_text" style="text-align: right; cursor:point" ng-click="showReviews(x)">Read Review<img  style="margin-left: 5px" src="img/book.png"></a>
+
+			<div>
+
+
+		</div>
+		
+		
+	</section>
+
+</article>
+
+<footer>
+	<section class = "footer_row1">
+		<div id="legalmatch_logo_footer">
+			<img  src="img/logo_footer.png" alt="logo" >
+			<p>FIND THE RIGHT LAWYER NOW</p>
+		</div>
+		<div id="footer_nav" class="centered">
+			<ul>
+				<li class="inline_li">User Agreement</li>
+				<li class="inline_li">Privacy Policy</li>
+				<li class="inline_li">User Map</li>
+			</ul>
+		</div>
+		<div id="truste_logo">
+			<img  src="img/truste.png" alt="truste logo">
+		</div>
+	</section>
+
+	<section class = "footer_row2">
+		<div class="copyright_legamatch centered">
+			<p style="width: 60%; font-size: 12px">Copyright 1999-2016 LegalMatch. All rights reserved LegalMatch, the LegalMatch logo and the tradedress are trademarks of LegalMatch. Patents Pending.</p>
+			
+		</div>	
+		<div id="truste_logo">
+			<img  src="img/bbb.png" alt="truste logo">
+		</div>
+	</section>
+</footer>
+</body>
 </html>
